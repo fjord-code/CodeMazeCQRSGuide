@@ -5,6 +5,8 @@ VisualStudioVersion = 17.14.36414.22 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMazeCQRSGuide", "CodeMazeCQRSGuide\CodeMazeCQRSGuide.csproj", "{45BFC32B-D7D9-4082-8AE2-1A2240CC6761}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{72132DB1-DD4E-42CB-BE65-20F068912032}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{CD5512E0-299C-4F8B-8D54-D7B108165972}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{8092613B-F387-4591-9CEA-0E72E9C8DE85}"
