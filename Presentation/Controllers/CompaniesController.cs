@@ -1,7 +1,8 @@
-﻿using Application.Queries;
+﻿using Application.Commands;
+using Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
+using Shared.DataTransferObjects;
 
 namespace Presentation.Controllers;
 
@@ -30,5 +31,18 @@ public class CompaniesController : ControllerBase
         var company = await _sender.Send(new GetCompanyQuery(Id: id, TrackChanges: false));
 
         return Ok(company);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateCompany([FromBody] CompanyForCreationDto companyForCreationDto)
+    {
+        if (companyForCreationDto is null)
+        {
+            return BadRequest($"{nameof(CompanyForCreationDto)} is null.");
+        }
+
+        var company = await _sender.Send(new CreateCompanyCommand(Company: companyForCreationDto));
+
+        return CreatedAtAction(nameof(GetCompany), new { id = company.Id }, company);
     }
 }

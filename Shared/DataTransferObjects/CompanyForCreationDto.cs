@@ -1,8 +1,7 @@
 ﻿namespace Shared.DataTransferObjects;
 
-public class CompanyDto
+public class CompanyForCreationDto
 {
-    public int Id { get; set; }
     public string Name { get; set; }
     public string Address { get; set; }
 }
