@@ -12,5 +12,7 @@ public class MappingProfile : Profile
             .ReverseMap();
 
         CreateMap<CompanyForCreationDto, Company>();
+
+        CreateMap<CompanyForUpdateDto, Company>();
     }
 }

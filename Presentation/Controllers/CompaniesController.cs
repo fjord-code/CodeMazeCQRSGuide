@@ -38,11 +38,24 @@ public class CompaniesController : ControllerBase
     {
         if (companyForCreationDto is null)
         {
-            return BadRequest($"{nameof(CompanyForCreationDto)} is null.");
+            return BadRequest($"{nameof(CompanyForCreationDto)} object is null.");
         }
 
         var company = await _sender.Send(new CreateCompanyCommand(Company: companyForCreationDto));
 
         return CreatedAtAction(nameof(GetCompany), new { id = company.Id }, company);
+    }
+
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> UpdateCompany([FromRoute] int id, [FromBody] CompanyForUpdateDto companyForUpdateDto)
+    {
+        if (companyForUpdateDto is null)
+        {
+            return BadRequest($"{nameof(CompanyForUpdateDto)} object is null.");
+        }
+
+        await _sender.Send(new UpdateCompanyCommand(Id: id, Company: companyForUpdateDto, TrackChanges: true));
+
+        return NoContent();
     }
 }
