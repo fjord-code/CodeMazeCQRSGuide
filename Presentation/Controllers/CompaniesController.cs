@@ -1,4 +1,5 @@
 ﻿using Application.Commands;
+using Application.Notifications;
 using Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -11,10 +12,14 @@ namespace Presentation.Controllers;
 public class CompaniesController : ControllerBase
 {
     private readonly ISender _sender;
+    private readonly IPublisher _publisher;
 
-    public CompaniesController(ISender sender)
+    public CompaniesController(
+        ISender sender,
+        IPublisher publisher)
     {
         _sender = sender;
+        _publisher = publisher;
     }
 
     [HttpGet]
@@ -62,7 +67,7 @@ public class CompaniesController : ControllerBase
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> DeleteCompany([FromRoute] int id)
     {
-        await _sender.Send(new DeleteCompanyCommand(Id: id, TrackChanges: false));
+        await _publisher.Publish(new CompanyDeletedNotification(Id: id, TrackChanges: false));
 
         return NoContent();
     }

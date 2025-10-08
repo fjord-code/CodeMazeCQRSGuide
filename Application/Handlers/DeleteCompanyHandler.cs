@@ -1,11 +1,11 @@
-﻿using Application.Commands;
+﻿using Application.Notifications;
 using Contracts;
 using MediatR;
 using Shared.Exceptions;
 
 namespace Application.Handlers;
 
-internal sealed class DeleteCompanyHandler : IRequestHandler<DeleteCompanyCommand, Unit>
+internal sealed class DeleteCompanyHandler : INotificationHandler<CompanyDeletedNotification>
 {
     private readonly IRepositoryManager _repositoryManager;
 
@@ -15,18 +15,16 @@ internal sealed class DeleteCompanyHandler : IRequestHandler<DeleteCompanyComman
         _repositoryManager = repositoryManager;
     }
 
-    public async Task<Unit> Handle(DeleteCompanyCommand request, CancellationToken cancellationToken)
+    public async Task Handle(CompanyDeletedNotification notification, CancellationToken cancellationToken)
     {
-        var company = await _repositoryManager.Companies.GetByIdAsync(request.Id, request.TrackChanges);
+        var company = await _repositoryManager.Companies.GetByIdAsync(notification.Id, notification.TrackChanges);
 
         if (company is null)
         {
-            throw new CompanyNotFoundException(request.Id);
+            throw new CompanyNotFoundException(notification.Id);
         }
 
         await _repositoryManager.Companies.DeleteAsync(company);
         await _repositoryManager.SaveAsync();
-
-        return Unit.Value;
     }
 }
