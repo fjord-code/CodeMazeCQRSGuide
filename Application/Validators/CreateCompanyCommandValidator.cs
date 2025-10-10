@@ -23,7 +23,7 @@ public sealed class CreateCompanyCommandValidator : AbstractValidator<CreateComp
     /// </summary>
     public override ValidationResult Validate(ValidationContext<CreateCompanyCommand> context)
     {
-        return context.InstanceToValidate is null ?
+        return context.InstanceToValidate.Company is null ?
             new ValidationResult(new[] { new ValidationFailure(nameof(CompanyForCreationDto), $"{nameof(CompanyForCreationDto)} is null.") }) :
             base.Validate(context);
     }
