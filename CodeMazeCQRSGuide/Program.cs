@@ -1,5 +1,7 @@
+using Application.Behaviors;
 using CodeMazeCQRSGuide.Extensions;
 using Contracts;
+using FluentValidation;
 using MediatR;
 using Repository;
 
@@ -13,11 +15,16 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddMediatR(typeof(Application.AssemblyReference).Assembly);
 builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddValidatorsFromAssembly(typeof(Application.AssemblyReference).Assembly);
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
 builder.Services.AddAppDbContext(builder.Configuration);
 builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
 
 var app = builder.Build();
+
+var logger = app.Services.GetRequiredService<ILogger<Exception>>();
+app.ConfigureExceptionHandler(logger);
 
 if (app.Environment.IsDevelopment())
 {

@@ -1,6 +1,6 @@
-﻿using Shared.Exceptions.Base;
+﻿using Entities.Exceptions.Base;
 
-namespace Shared.Exceptions;
+namespace Entities.Exceptions;
 
 public sealed class CompanyNotFoundException : NotFoundException
 {

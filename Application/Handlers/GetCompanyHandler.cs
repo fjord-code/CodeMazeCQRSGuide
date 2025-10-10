@@ -1,9 +1,9 @@
 ﻿using Application.Queries;
 using AutoMapper;
 using Contracts;
+using Entities.Exceptions;
 using MediatR;
 using Shared.DataTransferObjects;
-using Shared.Exceptions;
 
 namespace Application.Handlers;
 

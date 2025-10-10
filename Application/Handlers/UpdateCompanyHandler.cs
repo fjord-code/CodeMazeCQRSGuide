@@ -1,8 +1,8 @@
 ﻿using Application.Commands;
 using AutoMapper;
 using Contracts;
+using Entities.Exceptions;
 using MediatR;
-using Shared.Exceptions;
 
 namespace Application.Handlers;
 
